@@ -6,12 +6,13 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
-	<groupId>com.app.</groupId>
+	<groupId>com.app</groupId>
 	<artifactId>commerce</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>commerce</name>
+  <packaging>pom</packaging>
+  <name>commerce</name>
 	<description>Monorepository of the “Commerce app” project</description>
 	<url/>
 	<licenses>

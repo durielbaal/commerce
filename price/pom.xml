@@ -3,14 +3,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-    <groupId>com.app.</groupId>
+    <groupId>com.app</groupId>
     <artifactId>commerce</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>price</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>price</name>
-	<description>Business management.</description>
+	<description>Business management microservice.</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -54,11 +54,11 @@
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+    <!-- H2 Database -->
+    <dependency>
+      <groupId>io.r2dbc</groupId>
+      <artifactId>r2dbc-h2</artifactId>
+    </dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
