@@ -54,7 +54,12 @@
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
 
-    <!-- H2 Database -->
+    <!-- R2DBC dependency to interact with databases in a reactive manner -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+    </dependency>
+    <!-- H2 Database Driver -->
     <dependency>
       <groupId>io.r2dbc</groupId>
       <artifactId>r2dbc-h2</artifactId>
