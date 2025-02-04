@@ -1,4 +1,4 @@
-package com.app.price.infraestructure.persistance;
+package com.app.price.infrastructure.persistance;
 
 import com.app.price.core.domain.model.Price;
 import com.app.price.core.domain.port.output.PriceOutputPort;

@@ -1,4 +1,4 @@
-package com.app.price.infraestructure.api;
+package com.app.price.infrastructure.api;
 
 import com.app.price.core.domain.model.Price;
 import com.app.price.core.domain.port.input.PriceInputPort;
