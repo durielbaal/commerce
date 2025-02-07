@@ -21,7 +21,10 @@
 	<developers>
 		<developer/>
 	</developers>
-	<scm>
+  <modules>
+    <module>service</module>
+  </modules>
+  <scm>
 		<connection/>
 		<developerConnection/>
 		<tag/>
