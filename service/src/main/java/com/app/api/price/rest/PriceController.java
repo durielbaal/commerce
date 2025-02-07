@@ -5,7 +5,6 @@ import static com.app.api.shared.rest.Routing.GET_PRICE_BY_FILTER_PATH;
 import static com.app.api.shared.rest.Routing.PRICE_PATH;
 
 import com.app.api.price.domain.model.Price;
-import com.app.api.price.domain.model.PriceFilter;
 import com.app.api.price.domain.ports.inbound.GetPriceByFilterUseCase;
 import java.time.LocalDateTime;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,4 +28,5 @@ public class PriceController {
       @PathVariable Integer productId, @PathVariable LocalDateTime certainDate){
     return getPriceByFilterUseCase.execute(adapt(brandId,productId,certainDate));
   }
+
 }

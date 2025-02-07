@@ -1,6 +1,5 @@
 package com.app.api.price.infrastructure.postgres.dao;
 
-import com.app.api.price.domain.model.Price;
 import com.app.api.price.infrastructure.postgres.entity.PriceEntity;
 import java.time.LocalDateTime;
 import org.springframework.data.r2dbc.repository.Query;

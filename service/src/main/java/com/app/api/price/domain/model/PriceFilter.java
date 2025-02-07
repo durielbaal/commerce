@@ -1,8 +1,6 @@
 package com.app.api.price.domain.model;
 
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 
 public class PriceFilter {
@@ -14,9 +12,6 @@ public class PriceFilter {
     this.brandId = brandId;
     this.productId = productId;
     this.certainDate = certainDate;
-  }
-
-  public PriceFilter(){
   }
 
   public LocalDateTime getCertainDate() {
