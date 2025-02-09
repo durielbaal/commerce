@@ -6,6 +6,6 @@ package com.app.api.shared.rest;
 public class Routing {
 
   public static final String PRICE_PATH = "price";
-  public static final String GET_PRICE_BY_FILTER_PATH = "/get/bargains/{brandId}/{productId}/{certainDate}";
+  public static final String GET_PRICE_BY_FILTER_PATH = "/get/bargains";
 
 }

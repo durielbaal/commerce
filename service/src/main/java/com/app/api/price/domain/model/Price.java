@@ -17,4 +17,25 @@ public class Price {
     this.currency = currency;
   }
 
+  public Price(){}
+
+  public Integer getBrandId() {
+    return brandId;
+  }
+
+  public Integer getPriceList() {
+    return priceList;
+  }
+
+  public Integer getProductId() {
+    return productId;
+  }
+
+  public BigDecimal getPrice() {
+    return price;
+  }
+
+  public String getCurrency() {
+    return currency;
+  }
 }

@@ -1,9 +1,10 @@
-package com.app.api.price.infrastructure.postgres.entity;
+package com.app.api.price.infrastructure.repository.postgres.entity;
 
 import com.app.api.price.domain.model.Price;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("Price")
@@ -18,6 +19,7 @@ public class PriceEntity {
   private Integer productId;
   private Integer priority;
   private BigDecimal price;
+  @Column("curr")
   private String currency;
 
   public Price entityToModel(){

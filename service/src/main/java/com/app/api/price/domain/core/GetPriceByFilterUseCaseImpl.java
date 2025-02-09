@@ -4,6 +4,7 @@ import com.app.api.price.domain.model.Price;
 import com.app.api.price.domain.model.PriceFilter;
 import com.app.api.price.domain.ports.inbound.GetPriceByFilterUseCase;
 import com.app.api.price.domain.ports.outbound.PricePersistencePort;
+import com.app.api.price.infrastructure.repository.postgres.entity.PriceEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -18,6 +19,6 @@ public class GetPriceByFilterUseCaseImpl implements GetPriceByFilterUseCase {
 
   @Override
   public Mono<Price> execute(PriceFilter filter) {
-    return pricePersistencePort.getPriceByFilter(filter).flatMap(priceEntity -> Mono.just(priceEntity.entityToModel()));
+    return pricePersistencePort.getPriceByFilter(filter).map(PriceEntity::entityToModel);
   }
 }

@@ -4,8 +4,8 @@ import static com.app.api.price.domain.ports.outbound.PricePersistencePort.GET_P
 import static com.app.api.shared.domain.ports.outbound.OutboundPort.register;
 
 import com.app.api.price.domain.model.PriceFilter;
-import com.app.api.price.infrastructure.postgres.dao.PriceDao;
-import com.app.api.price.infrastructure.postgres.entity.PriceEntity;
+import com.app.api.price.infrastructure.repository.postgres.dao.PriceDao;
+import com.app.api.price.infrastructure.repository.postgres.entity.PriceEntity;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
