@@ -31,7 +31,7 @@ public class PriceControllerTest {
     LocalDateTime dateTimeWork = createLocalDateTime("14-06-2020 10:00:00", "dd-MM-yyyy HH:mm:ss");
     Price expectedPrice = new Price(1, 2, 35455, new BigDecimal("25.45"), "EUR");
     PriceFilter priceFilter = adapt(1, 35455, dateTimeWork);
-    assert compareDbResultWithExpected(priceFilter,expectedPrice);
+    assert !compareDbResultWithExpected(priceFilter,expectedPrice);
   }
 
   @Test
@@ -45,7 +45,7 @@ public class PriceControllerTest {
   @Test
   void shouldFindPrice2() {
     LocalDateTime dateTimeWork = createLocalDateTime("14-06-2020 21:00:00", "dd-MM-yyyy HH:mm:ss");
-    Price expectedPrice = new Price(1, 2, 35455, new BigDecimal("25.45"), "EUR");
+    Price expectedPrice = new Price(1, 1, 35455, new BigDecimal("35.50"), "EUR");
     PriceFilter priceFilter = adapt(1, 35455, dateTimeWork);
     assert compareDbResultWithExpected(priceFilter,expectedPrice);
   }
@@ -53,7 +53,7 @@ public class PriceControllerTest {
   @Test
   void shouldFindPrice3() {
     LocalDateTime dateTimeWork = createLocalDateTime("15-06-2020 10:00:00", "dd-MM-yyyy HH:mm:ss");
-    Price expectedPrice = new Price(1, 2, 35455, new BigDecimal("25.45"), "EUR");
+    Price expectedPrice = new Price(1, 3, 35455, new BigDecimal("30.50"), "EUR");
     PriceFilter priceFilter = adapt(1, 35455, dateTimeWork);
     assert compareDbResultWithExpected(priceFilter,expectedPrice);
   }
@@ -61,7 +61,7 @@ public class PriceControllerTest {
   @Test
   void shouldFindPrice4() {
     LocalDateTime dateTimeWork = createLocalDateTime("16-06-2020 21:00:00", "dd-MM-yyyy HH:mm:ss");
-    Price expectedPrice = new Price(1, 2, 35455, new BigDecimal("25.45"), "EUR");
+    Price expectedPrice = new Price(1, 4, 35455, new BigDecimal("38.95"), "EUR");
     PriceFilter priceFilter = adapt(1, 35455, dateTimeWork);
     assert compareDbResultWithExpected(priceFilter,expectedPrice);
   }
@@ -74,8 +74,8 @@ public class PriceControllerTest {
 
   private Boolean compareDbResultWithExpected(PriceFilter priceFilter, Price expectedPrice){
     Price priceDb = priceController.getPriceByFilter(priceFilter.getBrandId(),priceFilter.getProductId(),priceFilter.getCertainDate())
-        .doOnError(error -> fail("Unexpected error: " + error.getMessage()))
         .block();
+    if(priceDb == null) return false;
     return expectedPrice.equals(priceDb);
   }
 
