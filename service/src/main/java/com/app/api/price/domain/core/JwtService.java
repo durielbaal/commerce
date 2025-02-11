@@ -1,4 +1,4 @@
-package com.app.api.price.configuration;
+package com.app.api.price.domain.core;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

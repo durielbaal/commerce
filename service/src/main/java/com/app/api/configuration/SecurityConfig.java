@@ -1,6 +1,6 @@
-package com.app.api.price.configuration;
+package com.app.api.configuration;
 
-import lombok.RequiredArgsConstructor;
+import com.app.api.price.domain.model.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -45,7 +45,7 @@ public class SecurityConfig {
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(authorizeRequests ->
             authorizeRequests
-                .requestMatchers("api/**").permitAll()
+                .requestMatchers("auth/**").permitAll()
                 .anyRequest().authenticated()
         )
         .addFilterBefore(jwtAuthenticationFilter,
