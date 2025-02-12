@@ -1,10 +1,10 @@
 package com.app.api.price.domain.ports.outbound;
 
-import static com.app.api.shared.domain.ports.outbound.OutboundPort.requestEvent;
+import static com.app.shared.domain.ports.outbound.OutboundPort.requestEvent;
 
 import com.app.api.price.domain.model.PriceFilter;
 import com.app.api.price.infrastructure.repository.postgres.entity.PriceEntity;
-import com.app.api.shared.domain.model.Message;
+import com.app.shared.domain.model.Message;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 

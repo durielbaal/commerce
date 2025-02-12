@@ -1,6 +1,6 @@
-package com.app.api.shared.domain.ports.outbound;
+package com.app.shared.domain.ports.outbound;
 
-import com.app.api.shared.domain.model.Message;
+import com.app.shared.domain.model.Message;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Component;

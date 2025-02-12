@@ -1,7 +1,7 @@
 package com.app.api.price.infrastructure.repository;
 
 import static com.app.api.price.domain.ports.outbound.PricePersistencePort.GET_PRICE_BY_FILTER_ADDRESS;
-import static com.app.api.shared.domain.ports.outbound.OutboundPort.register;
+import static com.app.shared.domain.ports.outbound.OutboundPort.register;
 
 import com.app.api.price.domain.model.PriceFilter;
 import com.app.api.price.infrastructure.repository.postgres.dao.PriceDao;

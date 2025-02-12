@@ -1,4 +1,4 @@
-package com.app.api.shared.rest;
+package com.app.shared.rest;
 
 /**
  * Routing of endpoints

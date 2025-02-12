@@ -1,4 +1,4 @@
-package com.app.api.shared.domain.ports.inbound;
+package com.app.shared.domain.ports.inbound;
 
 @FunctionalInterface
 public interface UseCase <I,R>{

@@ -1,8 +1,8 @@
 package com.app.api.price.rest;
 
 import static com.app.api.price.rest.adapter.PriceFilterAdapter.adapt;
-import static com.app.api.shared.rest.Routing.GET_PRICE_BY_FILTER_PATH;
-import static com.app.api.shared.rest.Routing.PRICE_PATH;
+import static com.app.shared.rest.Routing.GET_PRICE_BY_FILTER_PATH;
+import static com.app.shared.rest.Routing.PRICE_PATH;
 
 import com.app.api.price.domain.model.Price;
 import com.app.api.price.domain.ports.inbound.GetPriceByFilterUseCase;

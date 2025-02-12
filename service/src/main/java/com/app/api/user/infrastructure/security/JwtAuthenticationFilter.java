@@ -1,6 +1,5 @@
-package com.app.api.price.domain.model;
+package com.app.api.user.infrastructure.security;
 
-import com.app.api.price.domain.core.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

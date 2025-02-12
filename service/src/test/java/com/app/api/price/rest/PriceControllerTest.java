@@ -1,7 +1,6 @@
 package com.app.api.price.rest;
 
 import static com.app.api.price.rest.adapter.PriceFilterAdapter.adapt;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.app.api.price.domain.model.Price;
 import com.app.api.price.domain.model.PriceFilter;

@@ -5,7 +5,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.mock;
 
 import com.app.api.price.domain.model.PriceFilter;
-import com.app.api.shared.domain.model.Message;
+import com.app.shared.domain.model.Message;
+import com.app.shared.domain.ports.outbound.OutboundPort;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import reactor.core.publisher.Mono;

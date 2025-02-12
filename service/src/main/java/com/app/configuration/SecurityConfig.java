@@ -1,6 +1,6 @@
-package com.app.api.configuration;
+package com.app.configuration;
 
-import com.app.api.price.domain.model.JwtAuthenticationFilter;
+import com.app.api.user.infrastructure.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
