@@ -1,6 +1,6 @@
 package com.app.configuration;
 
-import com.app.api.user.infrastructure.security.JwtAuthenticationFilter;
+import com.app.shared.infrastructure.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;

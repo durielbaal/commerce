@@ -1,7 +1,6 @@
 package com.app.api.user.infrastructure.repository.postgres.entity;
 
 
-import com.app.api.user.domain.model.User;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -14,8 +13,19 @@ public class UserEntity {
   private String password;
   private String role;
 
-  public User entityToModel(){
-    return new User(this.username,this.password);
+  public UserEntity() {
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public String getPassword() {
+    return password;
   }
 
 }

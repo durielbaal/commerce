@@ -6,17 +6,12 @@ import static com.app.shared.rest.Routing.SECURITY_PATH;
 
 import com.app.api.user.domain.model.User;
 import com.app.api.user.domain.ports.inbound.GetUserFilterUseCase;
-import com.app.api.user.infrastructure.security.JwtService;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import com.app.shared.infrastructure.security.JwtService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping(SECURITY_PATH)
@@ -30,20 +25,8 @@ public class AuthController {
   }
 
   @PostMapping(GET_LOGIN_PATH)
-  public ResponseEntity<Map<String,String>> login(@RequestBody User user) {
-      HashMap<String, String> response = new HashMap<>();
-        User userObtained = getUserFilterUseCase.execute(adapt(user.getUsername(),user.getPassword())).block();
-        if(userObtained == null) {
-          response.put("Token: ", "Bad credentials...");
-          return ResponseEntity.badRequest().body(response);
-        }
-        else response.put("Token: ",jwtService.generateToken(new UsernamePasswordAuthenticationToken(
-            userObtained.getUsername(),userObtained.getPassword(),List
-            .of(new SimpleGrantedAuthority("ROLE_USER")))));
-        return ResponseEntity.ok(response);
-
-
-
+  public Mono<String> login(@RequestBody User user) {
+    return getUserFilterUseCase.execute(adapt(user.getUsername(),user.getPassword()));
   }
 
 }

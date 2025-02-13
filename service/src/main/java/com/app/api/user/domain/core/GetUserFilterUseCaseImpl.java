@@ -1,11 +1,11 @@
 package com.app.api.user.domain.core;
 
-import com.app.api.user.domain.model.User;
 import com.app.api.user.domain.model.UserFilter;
 import com.app.api.user.domain.ports.inbound.GetUserFilterUseCase;
 import com.app.api.user.domain.ports.outbound.UserPersistancePort;
-import com.app.api.user.infrastructure.repository.postgres.entity.UserEntity;
-import com.app.api.user.infrastructure.security.JwtService;
+import com.app.shared.infrastructure.security.JwtService;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -21,8 +21,9 @@ public class GetUserFilterUseCaseImpl implements GetUserFilterUseCase {
   }
 
   @Override
-  public Mono<User> execute(UserFilter filter) {
-   return userPersistancePort.getPriceByFilter(filter).map(UserEntity::entityToModel);
+  public Mono<String> execute(UserFilter filter) {
+    return userPersistancePort.getUserToLogin(filter)
+        .switchIfEmpty(Mono.error(new BadCredentialsException("Bad credentials...")))
+        .map(u -> jwtService.generateToken(new UsernamePasswordAuthenticationToken(u.getUsername(), u.getPassword())));
   }
-
 }

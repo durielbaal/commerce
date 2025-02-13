@@ -10,13 +10,13 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class UserPersistancePort {
-  public static final String GET_USER_BY_FILTER_ADDRESS = "getUserByFilterAddress";
+  public static final String GET_USER_TO_LOGIN_ADDRESS = "getUserToLoginAddress";
 
   public UserPersistancePort() {
   }
 
-  public Mono<UserEntity> getPriceByFilter(UserFilter filter){
-    return requestEvent(new Message<>(GET_USER_BY_FILTER_ADDRESS, filter));
+  public Mono<UserEntity> getUserToLogin(UserFilter filter){
+    return requestEvent(new Message<>(GET_USER_TO_LOGIN_ADDRESS, filter));
   }
 
 }
