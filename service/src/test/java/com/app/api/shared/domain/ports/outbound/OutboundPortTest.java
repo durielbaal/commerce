@@ -1,41 +1,63 @@
 package com.app.api.shared.domain.ports.outbound;
 
-import static com.app.api.price.domain.ports.outbound.PricePersistencePort.GET_PRICE_BY_FILTER_ADDRESS;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.mock;
+import static org.mockito.ArgumentMatchers.any;
 
-import com.app.api.price.domain.model.PriceFilter;
 import com.app.shared.domain.model.Message;
 import com.app.shared.domain.ports.outbound.OutboundPort;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mockito;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
-@SpringBootTest
 public class OutboundPortTest {
 
-  @Test
-  void initialRegisterCompleted() {
-    PriceFilter priceFilter = mock(PriceFilter.class);
-    requestEventTest(GET_PRICE_BY_FILTER_ADDRESS);
-    assert true;
+  private OutboundPort.EventHandler<String, String> handler;
+
+  @BeforeEach
+  void setUp() {
+    handler = Mockito.mock(OutboundPort.EventHandler.class);
+    OutboundPort.register("testAddress", handler);
   }
 
   @Test
-  void normalRegisterCompleted() {
-    OutboundPort.register("Test1", (body) -> Mono.empty());
-    requestEventTest("Test1");
-    assert true;
+  void shouldReturnHandlerResultWhenEventIsDispatched() {
+    Message<String> event = new Message<>("testAddress", "testBody");
+
+    Mockito.when(handler.handle(any()))
+        .thenReturn(Mono.just("processed"));
+
+    Mono<String> result = OutboundPort.requestEvent(event);
+
+    StepVerifier.create(result)
+        .expectNext("processed")
+        .verifyComplete();
   }
 
-  public void requestEventTest(String tag){
-    PriceFilter priceFilter = mock(PriceFilter.class);
-    try{
-      OutboundPort.requestEvent(new Message<>(tag, priceFilter));
-    } catch (IllegalArgumentException e){
-      fail("IllegalArgumentException: ".concat(e.getMessage()));
-    } catch(Exception e){
-      fail("Generic exception: ".concat(e.getMessage()));
-    }
+  @Test
+  void shouldReturnErrorWhenNoHandlerIsRegistered() {
+    Message<String> event = new Message<>("unknownAddress", "testBody");
+
+    Mono<String> result = OutboundPort.requestEvent(event);
+
+    StepVerifier.create(result)
+        .expectError(IllegalArgumentException.class)
+        .verify();
+  }
+
+  @Test
+  void shouldInvokeHandlerWhenRegistered() {
+    Message<String> event = new Message<>("testAddress", "testBody");
+
+    Mockito.when(handler.handle(any()))
+        .thenReturn(Mono.just("processed"));
+
+    Mono<String> result = OutboundPort.requestEvent(event);
+
+    StepVerifier.create(result)
+        .expectNext("processed")
+        .verifyComplete();
+
+    Mockito.verify(handler, Mockito.times(1)).handle("testBody");
   }
 }

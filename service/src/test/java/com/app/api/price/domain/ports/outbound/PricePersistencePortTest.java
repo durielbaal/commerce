@@ -1,7 +1,6 @@
 package com.app.api.price.domain.ports.outbound;
 
 
-
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.app.api.price.domain.model.Price;
@@ -11,15 +10,19 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestConstructor;
+import org.springframework.test.context.TestConstructor.AutowireMode;
 
 @SpringBootTest
+@TestConstructor(autowireMode = AutowireMode.ALL)
 public class PricePersistencePortTest {
 
-  @Autowired
-  PricePersistencePort pricePersistencePort;
+  private final PricePersistencePort pricePersistencePort;
 
+  public PricePersistencePortTest(PricePersistencePort pricePersistencePort) {
+    this.pricePersistencePort = pricePersistencePort;
+  }
 
   @Test
   void shouldFindPrice() {
