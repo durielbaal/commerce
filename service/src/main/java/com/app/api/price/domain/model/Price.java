@@ -1,6 +1,7 @@
 package com.app.api.price.domain.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Price {
@@ -8,14 +9,17 @@ public class Price {
   private Integer priceList;
   private Integer productId;
   private BigDecimal price;
-  private String currency;
+  private LocalDateTime startDate;
+  private LocalDateTime endDate;
 
-  public Price(Integer brandId, Integer priceList, Integer productId, BigDecimal price, String currency) {
+  public Price(Integer brandId, Integer priceList, Integer productId, BigDecimal price,LocalDateTime startDate,
+      LocalDateTime endDate) {
     this.brandId = brandId;
     this.priceList = priceList;
     this.productId = productId;
     this.price = price;
-    this.currency = currency;
+    this.startDate = startDate;
+    this.endDate = endDate;
   }
 
   @Override
@@ -28,15 +32,14 @@ public class Price {
     }
     Price price1 = (Price) o;
     return Objects.equals(brandId, price1.brandId) && Objects.equals(priceList, price1.priceList) && Objects.equals(
-        productId, price1.productId) && Objects.equals(price, price1.price) && Objects.equals(currency, price1.currency);
+        productId, price1.productId) && Objects.equals(price, price1.price) && Objects.equals(startDate, price1.startDate)
+        && Objects.equals(endDate, price1.endDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(brandId, priceList, productId, price, currency);
+    return Objects.hash(brandId, priceList, productId, price, startDate, endDate);
   }
-
-  public Price(){}
 
   public Integer getBrandId() {
     return brandId;
@@ -53,8 +56,12 @@ public class Price {
   public BigDecimal getPrice() {
     return price;
   }
+  
+  public LocalDateTime getStartDate() {
+    return startDate;
+  }
 
-  public String getCurrency() {
-    return currency;
+  public LocalDateTime getEndDate() {
+    return endDate;
   }
 }

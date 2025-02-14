@@ -23,7 +23,7 @@ public class PriceEntity {
   private String currency;
 
   public Price entityToModel(){
-    return new Price(brandId, priceList, productId, price, currency);
+    return new Price(brandId, priceList, productId, price,startDate,endDate);
   }
 
 }
