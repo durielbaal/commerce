@@ -25,7 +25,9 @@ public class GetPriceByFilterUseCaseImplTest {
   @Test
   void shouldReturnPriceWhenFilterMatches() {
     LocalDateTime targetDate = parseDateTime("14-06-2020 16:00:00", "dd-MM-yyyy HH:mm:ss");
-    Price expectedPrice = new Price(1, 2, 35455, new BigDecimal("25.45"), "EUR");
+    LocalDateTime startDate = parseDateTime("14-06-2020 15:00:00", "dd-MM-yyyy HH:mm:ss");
+    LocalDateTime endDate = parseDateTime("14-06-2020 18:30:00", "dd-MM-yyyy HH:mm:ss");
+    Price expectedPrice = new Price(1, 2, 35455, new BigDecimal("25.45"),startDate,endDate);
     PriceFilter priceFilter = new PriceFilter(1, 35455, targetDate);
 
     boolean resultMatches = compareDatabaseResultWithExpected(priceFilter, expectedPrice);
@@ -35,8 +37,10 @@ public class GetPriceByFilterUseCaseImplTest {
   @Test
   void shouldReturnEmptyWhenFilterDoesNotMatch() {
     LocalDateTime targetDate = parseDateTime("14-06-2024 16:00:00", "dd-MM-yyyy HH:mm:ss");
+    LocalDateTime startDate = parseDateTime("14-06-2020 15:00:00", "dd-MM-yyyy HH:mm:ss");
+    LocalDateTime endDate = parseDateTime("14-06-2020 18:30:00", "dd-MM-yyyy HH:mm:ss");
     PriceFilter priceFilter = new PriceFilter(1, 35455, targetDate);
-    Price expectedPrice = new Price(1, 2, 35455, new BigDecimal("25.45"), "EUR");
+    Price expectedPrice = new Price(1, 2, 35455, new BigDecimal("25.45"),startDate,endDate);
 
     boolean resultDoesNotMatch = compareDatabaseResultWithExpected(priceFilter, expectedPrice);
     Assertions.assertFalse(resultDoesNotMatch, "The database should not return a price for this filter.");
