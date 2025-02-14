@@ -28,4 +28,5 @@ public class UserEntity {
     return password;
   }
 
+  public String getRole() { return role; }
 }
