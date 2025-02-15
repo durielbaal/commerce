@@ -5,6 +5,8 @@ import com.app.api.price.domain.model.PriceFilter;
 import com.app.api.price.domain.ports.inbound.GetPriceByFilterUseCase;
 import com.app.api.price.domain.ports.outbound.PricePersistencePort;
 import com.app.api.price.infrastructure.repository.postgres.entity.PriceEntity;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -33,7 +35,13 @@ public class GetPriceByFilterUseCaseImpl implements GetPriceByFilterUseCase {
    * @return A {@code Mono<Price>} containing the retrieved price data.
    */
   @Override
+  @CircuitBreaker(name = "GetPriceByFilterUseCaseImpl", fallbackMethod = "fallbackPrice")
+  @RateLimiter(name = "GetPriceByFilterUseCaseImpl")
   public Mono<Price> execute(PriceFilter filter) {
     return pricePersistencePort.getPriceByFilter(filter).map(PriceEntity::entityToModel);
+  }
+
+  private Mono<Price> fallbackPrice(PriceFilter filter, Throwable t) {
+    return Mono.error(new RuntimeException("Circuit Breaker Activated: " + t.getMessage()));
   }
 }

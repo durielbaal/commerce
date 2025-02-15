@@ -1,9 +1,13 @@
 package com.app.api.user.domain.core;
 
+import com.app.api.price.domain.model.Price;
+import com.app.api.price.domain.model.PriceFilter;
 import com.app.api.user.domain.model.UserFilter;
 import com.app.api.user.domain.ports.inbound.GetUserFilterUseCase;
 import com.app.api.user.domain.ports.outbound.UserPersistancePort;
 import com.app.shared.infrastructure.security.JwtService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import java.util.Collections;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,6 +28,8 @@ public class GetUserFilterUseCaseImpl implements GetUserFilterUseCase {
   }
 
   @Override
+  @CircuitBreaker(name = "GetUserFilterUseCaseImpl", fallbackMethod = "fallbackUser")
+  @RateLimiter(name = "GetUserFilterUseCaseImpl")
   public Mono<String> execute(UserFilter filter) {
     return userPersistancePort.getUserToLogin(filter)
         .switchIfEmpty(Mono.error(new BadCredentialsException("Bad credentials...")))
@@ -34,5 +40,9 @@ public class GetUserFilterUseCaseImpl implements GetUserFilterUseCase {
               new UsernamePasswordAuthenticationToken(u.getUsername(), u.getPassword(), Collections.singletonList(authority));
           return jwtService.generateToken(authToken);
         });
+  }
+
+  private Mono<String> fallbackPrice(UserFilter filter, Throwable t) {
+    return Mono.error(new RuntimeException("Circuit Breaker Activated: " + t.getMessage()));
   }
 }
