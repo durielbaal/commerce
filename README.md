@@ -3,7 +3,7 @@ Readme
 1. [Introducción](#Introducción)
 2. [Dependencias](#Dependencias)
 3. [Arquitectura](#Arquitectura)
-4. [Diseño y arquitectura de base de datos.](#Diseño_y_arquitectura_de_base_de_datos)
+4. [Diseño y arquitectura de base de datos](#Diseño_y_arquitectura_de_base_de_datos)
 5. [Seguridad y cobertura de la aplicación](#Seguridad_y_cobertura_de_la_aplicación)
 6. [Instalación](#Instalación)
 7. [Guía de uso](#Guía_de_uso)
