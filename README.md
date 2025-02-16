@@ -8,7 +8,7 @@ Readme
 6. [Instalación](#instalación)
 7. [Uso](#uso)
 
-## 1.- Introducción
+## introducción
 Este proyecto permite obtener información detallada sobre las tarifas disponibles en fechas específicas.
 Para acceder a estos datos, es necesario iniciar sesión previamente en la aplicación. 
 En esta sección, proporcionamos una descripción general de la funcionalidad de la aplicación sin entrar en detalles profundos, 
