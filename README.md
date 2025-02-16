@@ -1,20 +1,20 @@
 Readme
 
-1. [Introducción](#introducción)
-2. [Dependencias](#dependencias)
-3. [Arquitectura](#arquitectura)
-4. [Diseño y arquitectura de base de datos.](#diseño-de-base-de-datos)
+1. [Introducción](#Introducción)
+2. [Dependencias](#Dependencias)
+3. [Arquitectura](#Arquitectura)
+4. [Diseño y arquitectura de base de datos.](#Diseño_y_arquitectura_de_base_de_datos.)
 5. [Seguridad y cobertura de la aplicación](#seguridad-y-cobertura-de-la-aplicación)
-6. [Instalación](#instalación)
-7. [Uso](#uso)
+6. [Instalación](#Instalación)
+7. [Guía de Uso](#Guía_de_Uso)
 
-## introducción
+## Introducción
 Este proyecto permite obtener información detallada sobre las tarifas disponibles en fechas específicas.
 Para acceder a estos datos, es necesario iniciar sesión previamente en la aplicación. 
 En esta sección, proporcionamos una descripción general de la funcionalidad de la aplicación sin entrar en detalles profundos, 
 los cuales se abordarán en las secciones siguientes.
 
- ## 2.- Dependencias
+ ## Dependencias
  🔹 Dependencias de Spring Boot
  
       spring-boot-starter-security → Seguridad
@@ -65,7 +65,7 @@ spring-boot-starter-data-r2dbc → Acceso a bases de datos reactivo
     
     spring-boot-maven-plugin → Empaquetado y ejecución de Spring Boot
 
-## 3.- Arquitectura
+## Arquitectura
 Este proyecto sigue el patrón de Arquitectura Hexagonal, también conocida como Arquitectura de Puertos y Adaptadores. 
 Este patrón busca desacoplar la lógica de negocio (el dominio) de los detalles de implementación, como el acceso a la base de datos, los servicios externos y las interfaces de usuario. 
 El objetivo es crear un sistema flexible, escalable y fácil de mantener, permitiendo que los cambios en los detalles de implementación no afecten la lógica de negocio central.
@@ -122,7 +122,7 @@ En lugar de que un componente (por ejemplo, un servicio) se comunique directamen
 los componentes interesados (o suscriptores) reaccionan a esos eventos.
 
 
-## 4.- Diseño y arquitectura de base de datos.
+## Diseño y arquitectura de base de datos.
 Este proyecto utiliza una base de datos H2 en memoria, junto con Flyway para gestionar las migraciones y crear automáticamente la estructura de la base de datos al iniciar la aplicación.
 
 Para simplificar el desarrollo, se ha optado por utilizar la misma base de datos tanto en la ejecución de la aplicación como en los tests. No obstante, soy consciente de que lo ideal sería emplear Testcontainers para la ejecución de pruebas en un entorno más realista, pero he priorizado la agilidad en la implementación.
@@ -153,7 +153,7 @@ Sin embargo, para agilizar el desarrollo de la prueba técnica, se ha implementa
 El esquema de la base de datos se encuentra en:
 📂 main/resources/db/migration/V1__create_table.sql
 
-## 5.- Seguridad y cobertura
+## Seguridad y cobertura de la aplicación
 
 El sistema de seguridad utiliza token JWT basado en autenticación de usuario con ciertos roles.
 Los endpoints estan capados y para poder usarlos debemos logearnos con el usuario correcto con
@@ -205,7 +205,7 @@ Se permiten 5 solicitudes en un período de 10 segundos.
 
 Una vez alcanzado el límite, las solicitudes adicionales deben esperar 1 segundo antes de volver a intentarlo.
 
-## 6.- instalación
+## Instalación
 1.-Bajar del github y mavenizarlo 
 
 2.-Instalar SonarCube como herramienta de monitorozación y cobertura de código.
@@ -216,7 +216,7 @@ Hay un plugin para ello.
 
 4.-Después de eso, tendríamos que aplicar la sección que viene a continuación.
 
-## 7.- uso
+## Guía de so
 Debes ejecutar la aplicación en este orden:
 
 1.-http://localhost:8080/auth/security/login
