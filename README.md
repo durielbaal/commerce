@@ -95,7 +95,7 @@ Sin embargo, para agilizar el desarrollo de la prueba técnica, se ha implementa
 El esquema de la base de datos se encuentra en:
 📂 main/resources/db/migration/V1__create_table.sql
 
-## 4.- SeguridadCobertura
+## 4.- Seguridad y cobertura
 Gestión de Resiliencia con Resilience4j
 
 Este proyecto implementa Resilience4j para mejorar la resiliencia y estabilidad del sistema mediante el uso de Circuit Breaker y Rate Limiter en los servicios críticos.
@@ -141,6 +141,15 @@ Se permiten 5 solicitudes en un período de 10 segundos.
 Una vez alcanzado el límite, las solicitudes adicionales deben esperar 1 segundo antes de volver a intentarlo.
 
 ## 5.- instalación
+1.-Bajar del github y mavenizarlo 
+
+2.-Instalar SonarCube como herramienta de monitorozación y cobertura de código.
+
+Hay un plugin para ello.
+
+3.-Maven clean install.
+
+4.-Después de eso, tendríamos que aplicar la sección 6 que viene a continuación.
 
 ## 6.- uso
 Debes ejecutar la aplicación en este orden:
