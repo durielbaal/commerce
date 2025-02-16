@@ -2,18 +2,19 @@ resilience4j:
   circuitbreaker:
     instances:
       priceService:
-        failureRateThreshold: 50
-        slowCallRateThreshold: 100
-        slowCallDurationThreshold: 2s
-        permittedNumberOfCallsInHalfOpenState: 2
-        maxWaitDurationInHalfOpenState: 5s
-        slidingWindowSize: 10
-        minimumNumberOfCalls: 5
-        waitDurationInOpenState: 10s
-        automaticTransitionFromOpenToHalfOpenEnabled: true
+        failureRateThreshold: 50  # The circuit breaker opens if 50% of requests fail.
+        slowCallRateThreshold: 100  # If 100% of the calls exceed the slow call threshold, they are considered slow failures.
+        slowCallDurationThreshold: 2s  # Calls taking longer than 2 seconds will be marked as slow.
+        permittedNumberOfCallsInHalfOpenState: 2  # In half-open state, only 2 test calls are allowed before transitioning.
+        maxWaitDurationInHalfOpenState: 5s  # Maximum wait time in half-open state before changing states.
+        slidingWindowSize: 10  # The circuit breaker evaluates the last 10 calls to calculate failure rate.
+        minimumNumberOfCalls: 5  # A minimum of 5 calls is required before deciding to open/close the circuit.
+        waitDurationInOpenState: 10s  # The circuit breaker remains open for 10 seconds before transitioning to half-open.
+        automaticTransitionFromOpenToHalfOpenEnabled: true  # Automatically switches from open to half-open without external triggers.
+
   ratelimiter:
     instances:
       priceService:
-        limitForPeriod: 5
-        limitRefreshPeriod: 10s
-        timeoutDuration: 1s
+        limitForPeriod: 5  # Allows up to 5 requests per refresh period.
+        limitRefreshPeriod: 10s  # The request limit resets every 10 seconds.
+        timeoutDuration: 1s  # If rate-limited, requests wait for 1 second before timing out.
