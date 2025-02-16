@@ -3,7 +3,7 @@ Readme
 1. [Introducción](#Introducción)
 2. [Dependencias](#Dependencias)
 3. [Arquitectura](#Arquitectura)
-4. [Diseño y arquitectura de base de datos.](#Diseño_y_arquitectura_de_base_de_datos.)
+4. [Diseño y arquitectura de base de datos.](#Diseño_y_arquitectura_de_base_de_datos)
 5. [Seguridad y cobertura de la aplicación](#seguridad-y-cobertura-de-la-aplicación)
 6. [Instalación](#Instalación)
 7. [Guía de Uso](#Guía_de_Uso)
@@ -122,7 +122,7 @@ En lugar de que un componente (por ejemplo, un servicio) se comunique directamen
 los componentes interesados (o suscriptores) reaccionan a esos eventos.
 
 
-## Diseño y arquitectura de base de datos.
+## Diseño y arquitectura de base de datos
 Este proyecto utiliza una base de datos H2 en memoria, junto con Flyway para gestionar las migraciones y crear automáticamente la estructura de la base de datos al iniciar la aplicación.
 
 Para simplificar el desarrollo, se ha optado por utilizar la misma base de datos tanto en la ejecución de la aplicación como en los tests. No obstante, soy consciente de que lo ideal sería emplear Testcontainers para la ejecución de pruebas en un entorno más realista, pero he priorizado la agilidad en la implementación.
@@ -216,7 +216,7 @@ Hay un plugin para ello.
 
 4.-Después de eso, tendríamos que aplicar la sección que viene a continuación.
 
-## Guía de so
+## Guía de uso
 Debes ejecutar la aplicación en este orden:
 
 1.-http://localhost:8080/auth/security/login
