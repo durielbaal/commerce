@@ -1,21 +1,71 @@
 Readme
 
 1. [Introducción](#introducción)
-2. [Arquitectura](#arquitectura)
-3. [Diseño de base de datos](#baseDeDatos)
-4. [Seguridad y cobertura de la aplicación](#SeguridadCobertura)
-5. [Instalación](#instalación)
-6. [Uso](#uso)
-7. [Contribuciones](#contribuciones)
-8. [Licencia](#licencia)
+2. [Dependencias](#dependencias)
+3. [Arquitectura](#arquitectura)
+4. [Diseño y arquitectura de base de datos.](#diseño-de-base-de-datos)
+5. [Seguridad y cobertura de la aplicación](#seguridad-y-cobertura-de-la-aplicación)
+6. [Instalación](#instalación)
+7. [Uso](#uso)
 
-## 1.-Introducción
+## 1.- Introducción
 Este proyecto permite obtener información detallada sobre las tarifas disponibles en fechas específicas.
 Para acceder a estos datos, es necesario iniciar sesión previamente en la aplicación. 
 En esta sección, proporcionamos una descripción general de la funcionalidad de la aplicación sin entrar en detalles profundos, 
 los cuales se abordarán en las secciones siguientes.
 
-## 2.- arquitectura
+ ## 2.- Dependencias
+ 🔹 Dependencias de Spring Boot
+ 
+      spring-boot-starter-security → Seguridad
+      
+      spring-boot-starter-web → Aplicaciones web
+      
+      spring-boot-starter-webflux → Programación reactiva
+
+spring-boot-starter-data-r2dbc → Acceso a bases de datos reactivo
+
+🔹 Dependencias de Spring Cloud
+    
+    spring-cloud-starter-circuitbreaker-reactor-resilience4j → Circuit Breaker con Resilience4j
+    
+    spring-cloud-dependencies (gestión de dependencias)
+
+🔹 Base de datos
+
+    r2dbc-h2 → Controlador R2DBC para H2 (base de datos en memoria)
+    
+    flyway-core → Migraciones de base de datos
+
+🔹 Autenticación y Seguridad
+
+    io.jsonwebtoken:jjwt-api → API de JWT
+    
+    io.jsonwebtoken:jjwt-impl → Implementación de JWT
+    
+    io.jsonwebtoken:jjwt-jackson → Soporte de JWT con Jackson
+
+🔹 Resilience4j (Tolerancia a fallos)
+
+    resilience4j-circuitbreaker → Circuit Breaker
+    
+    resilience4j-ratelimiter → Rate Limiting
+
+🔹 Dependencias para pruebas (scope test)
+
+    spring-boot-starter-test → Testing en Spring Boot
+    
+    reactor-test → Testing en entornos reactivos
+    
+    spring-security-test → Testing para seguridad
+
+🔹 Plugins
+
+    maven-compiler-plugin → Compilación con soporte para Lombok
+    
+    spring-boot-maven-plugin → Empaquetado y ejecución de Spring Boot
+
+## 3.- Arquitectura
 Este proyecto sigue el patrón de Arquitectura Hexagonal, también conocida como Arquitectura de Puertos y Adaptadores. 
 Este patrón busca desacoplar la lógica de negocio (el dominio) de los detalles de implementación, como el acceso a la base de datos, los servicios externos y las interfaces de usuario. 
 El objetivo es crear un sistema flexible, escalable y fácil de mantener, permitiendo que los cambios en los detalles de implementación no afecten la lógica de negocio central.
@@ -65,12 +115,20 @@ Configuration: Contiene todas las configuraciones necesarias para el correcto fu
 
 Shared: Contiene elementos comunes que pueden ser utilizados por todos los dominios, como utilidades, excepciones, configuraciones globales o clases compartidas entre múltiples dominios.
 
-## 3.- Base de datos
+En este proyecto, hemos implementado un manejador de eventos y un bus de eventos para gestionar la comunicación entre diferentes partes del sistema de forma desacoplada.
+
+En lugar de que un componente (por ejemplo, un servicio) se comunique directamente con otro, el componente emisor publica eventos en el bus de eventos, y
+
+los componentes interesados (o suscriptores) reaccionan a esos eventos.
+
+
+## 4.- Diseño y arquitectura de base de datos.
 Este proyecto utiliza una base de datos H2 en memoria, junto con Flyway para gestionar las migraciones y crear automáticamente la estructura de la base de datos al iniciar la aplicación.
 
 Para simplificar el desarrollo, se ha optado por utilizar la misma base de datos tanto en la ejecución de la aplicación como en los tests. No obstante, soy consciente de que lo ideal sería emplear Testcontainers para la ejecución de pruebas en un entorno más realista, pero he priorizado la agilidad en la implementación.
 
 Estructura de la Base de Datos
+
 El esquema de la base de datos consta de dos tablas principales:
 
 User: Contiene los datos de los usuarios y está relacionada con la gestión de seguridad.
@@ -95,7 +153,14 @@ Sin embargo, para agilizar el desarrollo de la prueba técnica, se ha implementa
 El esquema de la base de datos se encuentra en:
 📂 main/resources/db/migration/V1__create_table.sql
 
-## 4.- Seguridad y cobertura
+## 5.- Seguridad y cobertura
+
+El sistema de seguridad utiliza token JWT basado en autenticación de usuario con ciertos roles.
+Los endpoints estan capados y para poder usarlos debemos logearnos con el usuario correcto con
+su correspondiente rol.
+
+Si nos autenticamos en el login, nos otorgarán un token JWT que podremos utilizar en los endpoints restringidos.
+
 Gestión de Resiliencia con Resilience4j
 
 Este proyecto implementa Resilience4j para mejorar la resiliencia y estabilidad del sistema mediante el uso de Circuit Breaker y Rate Limiter en los servicios críticos.
@@ -140,7 +205,7 @@ Se permiten 5 solicitudes en un período de 10 segundos.
 
 Una vez alcanzado el límite, las solicitudes adicionales deben esperar 1 segundo antes de volver a intentarlo.
 
-## 5.- instalación
+## 6.- instalación
 1.-Bajar del github y mavenizarlo 
 
 2.-Instalar SonarCube como herramienta de monitorozación y cobertura de código.
@@ -149,9 +214,9 @@ Hay un plugin para ello.
 
 3.-Maven clean install.
 
-4.-Después de eso, tendríamos que aplicar la sección 6 que viene a continuación.
+4.-Después de eso, tendríamos que aplicar la sección que viene a continuación.
 
-## 6.- uso
+## 7.- uso
 Debes ejecutar la aplicación en este orden:
 
 1.-http://localhost:8080/auth/security/login
@@ -175,17 +240,23 @@ Al ejecutar te generará un token para el siguiente endpoint,
 que es el que nos interesa.
 
 2.-http://localhost:8080/price/get/bargains
+
 Body:
+
 {
 "brandId": 1,
+
 "productId": 35455,
+
 "certainDate": "2020-06-14T16:00:00"
 }
+
+Puedes establecer los valores que quieras en este body.
+
+Yo pongo estos valores como ejemplo y ver que funciona.
+
 Authorization: Bearer Token e introduces el token generado en el
+
 primer token.
 
 Al ejecutar, te devolverá los datos correspondientes.
-
-## 7.- contribuciones
-
-## 8.- licencia
