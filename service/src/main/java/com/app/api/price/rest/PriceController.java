@@ -5,13 +5,11 @@ import static com.app.shared.rest.Routing.GET_PRICE_BY_FILTER_PATH;
 import static com.app.shared.rest.Routing.PRICE_PATH;
 
 import com.app.api.price.domain.model.Price;
+import com.app.api.price.domain.model.PriceRequest;
 import com.app.api.price.domain.ports.inbound.GetPriceByFilterUseCase;
-import java.time.LocalDateTime;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
@@ -25,10 +23,9 @@ public class PriceController {
     this.getPriceByFilterUseCase = getPriceByFilterUseCase;
   }
 
-  @GetMapping(GET_PRICE_BY_FILTER_PATH+"/{brandId}/{productId}")
-  public Mono<Price> getPriceByFilter(@PathVariable Integer brandId,
-      @PathVariable Integer productId, @RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") LocalDateTime certainDate){
-    return getPriceByFilterUseCase.execute(adapt(brandId,productId,certainDate));
+  @PostMapping(GET_PRICE_BY_FILTER_PATH)
+  public Mono<Price> getPriceByFilter(@RequestBody PriceRequest priceRequest){
+    return getPriceByFilterUseCase.execute(adapt(priceRequest.getBrandId(),priceRequest.getProductId(),priceRequest.getCertainDate()));
   }
 
 }
