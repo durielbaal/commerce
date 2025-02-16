@@ -12,6 +12,7 @@ import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 import com.app.api.price.domain.model.Price;
 import com.app.api.price.domain.model.PriceFilter;
+import com.app.api.price.domain.model.PriceRequest;
 import com.app.api.price.domain.ports.inbound.GetPriceByFilterUseCase;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -58,7 +59,8 @@ public class PriceControllerTest {
     LocalDateTime endDate= Mockito.mock(LocalDateTime.class);
     Price price = new Price(1, 1,1,new BigDecimal(100.0),startDate, endDate);
     when(getPriceByFilterUseCase.execute(any())).thenReturn(Mono.just(price));
-    Mono<Price> result = priceController.getPriceByFilter(brandId, productId, certainDate);
+    PriceRequest priceRequest= new PriceRequest(brandId, productId, certainDate);
+    Mono<Price> result = priceController.getPriceByFilter(priceRequest);
     result.doOnTerminate(() -> {
       verify(getPriceByFilterUseCase, times(1)).execute(any());
     }).subscribe(priceResult -> {
@@ -74,7 +76,8 @@ public class PriceControllerTest {
     Integer brandId = 1;
     Integer productId = 2;
     when(getPriceByFilterUseCase.execute(any())).thenReturn(Mono.empty());
-    Mono<Price> result = priceController.getPriceByFilter(brandId, productId, certainDate);
+    PriceRequest priceRequest= new PriceRequest(brandId, productId, certainDate);
+    Mono<Price> result = priceController.getPriceByFilter(priceRequest);
     result.doOnTerminate(() -> {
       verify(getPriceByFilterUseCase, times(1)).execute(any());
     }).subscribe(Assertions::assertNull);
@@ -85,7 +88,8 @@ public class PriceControllerTest {
     Integer brandId = 1;
     Integer productId = 2;
     when(getPriceByFilterUseCase.execute(any())).thenReturn(Mono.error(new RuntimeException("Error fetching price")));
-    Mono<Price> result = priceController.getPriceByFilter(brandId, productId, certainDate);
+    PriceRequest priceRequest= new PriceRequest(brandId, productId, certainDate);
+    Mono<Price> result = priceController.getPriceByFilter(priceRequest);
     result.doOnTerminate(() -> {
       verify(getPriceByFilterUseCase, times(1)).execute(any());
     }).subscribe(priceResult -> {
@@ -161,7 +165,8 @@ public class PriceControllerTest {
   }
 
   private Boolean compareDbResultWithExpected(PriceFilter priceFilter, Price expectedPrice){
-    Price priceDb = priceController.getPriceByFilter(priceFilter.getBrandId(),priceFilter.getProductId(),priceFilter.getCertainDate())
+    PriceRequest priceRequest= new PriceRequest(priceFilter.getBrandId(), priceFilter.getProductId(), priceFilter.getCertainDate());
+    Price priceDb = priceController.getPriceByFilter(priceRequest)
         .block();
     if(priceDb == null) return false;
     return expectedPrice.equals(priceDb);
