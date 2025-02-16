@@ -1,7 +1,7 @@
 resilience4j:
   circuitbreaker:
     instances:
-      priceService:
+      GetPriceByFilterUseCaseImpl:
         failureRateThreshold: 50  # The circuit breaker opens if 50% of requests fail.
         slowCallRateThreshold: 100  # If 100% of the calls exceed the slow call threshold, they are considered slow failures.
         slowCallDurationThreshold: 2s  # Calls taking longer than 2 seconds will be marked as slow.
@@ -12,9 +12,25 @@ resilience4j:
         waitDurationInOpenState: 10s  # The circuit breaker remains open for 10 seconds before transitioning to half-open.
         automaticTransitionFromOpenToHalfOpenEnabled: true  # Automatically switches from open to half-open without external triggers.
 
+      GetUserFilterUseCaseImpl:
+        failureRateThreshold: 50
+        slowCallRateThreshold: 100
+        slowCallDurationThreshold: 2s
+        permittedNumberOfCallsInHalfOpenState: 2
+        maxWaitDurationInHalfOpenState: 5s
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        waitDurationInOpenState: 10s
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
   ratelimiter:
     instances:
-      priceService:
+      GetPriceByFilterUseCaseImpl:
         limitForPeriod: 5  # Allows up to 5 requests per refresh period.
         limitRefreshPeriod: 10s  # The request limit resets every 10 seconds.
         timeoutDuration: 1s  # If rate-limited, requests wait for 1 second before timing out.
+
+      GetUserFilterUseCaseImpl:
+        limitForPeriod: 5
+        limitRefreshPeriod: 10s
+        timeoutDuration: 1s
