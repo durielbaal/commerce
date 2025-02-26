@@ -14,7 +14,7 @@ Para acceder a estos datos, es necesario iniciar sesión previamente en la aplic
 En esta sección, proporcionamos una descripción general de la funcionalidad de la aplicación sin entrar en detalles profundos, 
 los cuales se abordarán en las secciones siguientes.
 Algunas cosas a tener en cuenta es que no utilizo lombok porque me ha dado algunos problemas, además de ignorar algunas advertencias
-de sonarQube.
+de sonarQube. Tambien he comentado lo que considero más importante.
 
  ## Dependencias
  🔹 Dependencias de Spring Boot
