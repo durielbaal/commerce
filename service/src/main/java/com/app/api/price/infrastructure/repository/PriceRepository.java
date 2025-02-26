@@ -25,6 +25,6 @@ public class PriceRepository {
   }
 
   public Mono<PriceEntity> findByFilter(PriceFilter filter){
-    return priceDao.getPriceByFilter(filter.getBrandId(), filter.getProductId(), filter.getCertainDate());
+    return priceDao.getPriceByFilter(filter.brandId(), filter.productId(), filter.certainDate());
   }
 }

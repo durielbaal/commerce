@@ -25,9 +25,9 @@ public class PriceRepositoryTest {
 
   @Test
   void shouldFindPriceByFilter() {
-    LocalDateTime dateTimeWork = parseDateTime("14-06-2020 16:00:00", "dd-MM-yyyy HH:mm:ss");
-    LocalDateTime startDate = parseDateTime("14-06-2020 15:00:00", "dd-MM-yyyy HH:mm:ss");
-    LocalDateTime endDate = parseDateTime("14-06-2020 18:30:00", "dd-MM-yyyy HH:mm:ss");
+    LocalDateTime dateTimeWork = parseDateTime("14-06-2020 16:00:00");
+    LocalDateTime startDate = parseDateTime("14-06-2020 15:00:00");
+    LocalDateTime endDate = parseDateTime("14-06-2020 18:30:00");
     PriceFilter priceFilter = new PriceFilter(1, 35455, dateTimeWork);
     Price expectedPrice = new Price(1, 2, 35455, new BigDecimal("25.45"), startDate, endDate);
     Price resultPrice = priceRepository.findByFilter(priceFilter)
@@ -39,9 +39,9 @@ public class PriceRepositoryTest {
 
   @Test
   void shouldNotFindPriceByFilter() {
-    LocalDateTime dateTimeWork = parseDateTime("14-06-2024 16:00:00", "dd-MM-yyyy HH:mm:ss");
-    LocalDateTime startDate = parseDateTime("14-06-2024 15:00:00", "dd-MM-yyyy HH:mm:ss");
-    LocalDateTime endDate = parseDateTime("14-06-2024 18:30:00", "dd-MM-yyyy HH:mm:ss");
+    LocalDateTime dateTimeWork = parseDateTime("14-06-2024 16:00:00");
+    LocalDateTime startDate = parseDateTime("14-06-2024 15:00:00");
+    LocalDateTime endDate = parseDateTime("14-06-2024 18:30:00");
     PriceFilter priceFilter = new PriceFilter(1, 35455, dateTimeWork);
     Price expectedPrice = new Price(1, 2, 35455, new BigDecimal("25.45"), startDate, endDate);
     Price resultPrice = priceRepository.findByFilter(priceFilter)
@@ -51,8 +51,8 @@ public class PriceRepositoryTest {
     assert !expectedPrice.equals(resultPrice);
   }
 
-  private LocalDateTime parseDateTime(String dateString, String pattern) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+  private LocalDateTime parseDateTime(String dateString) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
     return LocalDateTime.parse(dateString, formatter);
   }
 }

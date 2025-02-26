@@ -6,7 +6,6 @@ import static com.app.shared.rest.Routing.SECURITY_PATH;
 
 import com.app.api.user.domain.model.User;
 import com.app.api.user.domain.ports.inbound.GetUserFilterUseCase;
-import com.app.shared.infrastructure.security.JwtService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +17,9 @@ import reactor.core.publisher.Mono;
 public class AuthController {
 
   private final GetUserFilterUseCase getUserFilterUseCase;
-  private final JwtService jwtService;
-  public AuthController(GetUserFilterUseCase getUserFilterUseCase, JwtService jwtService) {
+
+  public AuthController(GetUserFilterUseCase getUserFilterUseCase) {
     this.getUserFilterUseCase = getUserFilterUseCase;
-    this.jwtService = jwtService;
   }
 
   @PostMapping(GET_LOGIN_PATH)

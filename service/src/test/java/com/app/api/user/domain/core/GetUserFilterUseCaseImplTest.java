@@ -4,7 +4,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.app.api.user.domain.model.User;
 import com.app.api.user.domain.model.UserFilter;
 import com.app.api.user.domain.ports.outbound.UserPersistancePort;
 import com.app.api.user.infrastructure.repository.postgres.entity.UserEntity;
@@ -31,14 +30,12 @@ public class GetUserFilterUseCaseImplTest {
   @InjectMocks
   private GetUserFilterUseCaseImpl getUserFilterUseCase;
 
-  private User testUser;
   private UserFilter userFilter;
-  private String secretKey = "f87b7cfcf5d1b0e1f48c3c62f5f271b62f43a40f82b7c2cccb9b58bfe58f9c50567e3e9638b6fd7e2da9c24584ba00e6";
+
 
   @BeforeEach
   void setUp() {
     MockitoAnnotations.openMocks(this);
-    testUser = new User("user", "user");
     userFilter = new UserFilter("user", "user");
   }
 
