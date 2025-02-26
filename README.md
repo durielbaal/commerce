@@ -13,6 +13,8 @@ Este proyecto permite obtener información detallada sobre las tarifas disponibl
 Para acceder a estos datos, es necesario iniciar sesión previamente en la aplicación. 
 En esta sección, proporcionamos una descripción general de la funcionalidad de la aplicación sin entrar en detalles profundos, 
 los cuales se abordarán en las secciones siguientes.
+Algunas cosas a tener en cuenta es que no utilizo lombok porque me ha dado algunos problemas, además de ignorar algunas advertencias
+de sonarQube.
 
  ## Dependencias
  🔹 Dependencias de Spring Boot
