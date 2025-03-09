@@ -262,3 +262,7 @@ Authorization: Bearer Token e introduces el token generado en el
 primer token.
 
 Al ejecutar, te devolverá los datos correspondientes.
+
+También puedes seguir el paso 1 y 2 con Swagger accediendo a esta dirección:
+http://localhost:8080/swagger-ui/index.html
+
