@@ -1,6 +1,10 @@
 package com.app.configuration;
 
 import com.app.shared.infrastructure.security.JwtAuthenticationFilter;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -46,6 +50,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(authorizeRequests ->
             authorizeRequests
                 .requestMatchers("auth/**").permitAll()
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()
         )
         .addFilterBefore(jwtAuthenticationFilter,
@@ -65,6 +70,19 @@ public class SecurityConfig {
     return new BCryptPasswordEncoder();
   }
 
+  @Bean
+  public OpenAPI customOpenApi() {
+    return new OpenAPI()
+        .info(new Info().title("Commerce").version("1.0")
+            .description("API to Commerce"))
+        .addSecurityItem(new SecurityRequirement().addList("JWT"))
+        .components(new io.swagger.v3.oas.models.Components()
+            .addSecuritySchemes("JWT", new SecurityScheme()
+                .name("Authorization")
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT")));
+  }
 
 
 
